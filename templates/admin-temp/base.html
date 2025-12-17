@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-semibold">Student Counseling Dashboard</h1>
+            <a href="{% url 'admin:index' %}" class="bg-blue-700 hover:bg-blue-600 px-4 py-2 rounded text-white text-sm">Go to Admin</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white shadow rounded-lg p-6 text-center">
+                <h2 class="text-lg font-medium">Total Students</h2>
+                <p class="text-3xl font-bold text-blue-700">{{ total_students }}</p>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6 text-center">
+                <h2 class="text-lg font-medium">Allotted Students</h2>
+                <p class="text-3xl font-bold text-green-600">{{ allotted_students }}</p>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6 text-center">
+                <h2 class="text-lg font-medium">Pending Students</h2>
+                <p class="text-3xl font-bold text-red-600">{{ pending_students }}</p>
+            </div>
+        </div>
+
+        <!-- Student Table -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Student List</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200 text-sm">
+                    <thead>
+                        <tr class="bg-gray-100 border-b">
+                            <th class="px-4 py-2 text-left">Name</th>
+                            <th class="px-4 py-2 text-left">Branch</th>
+                            <th class="px-4 py-2 text-left">Rank</th>
+                            <th class="px-4 py-2 text-left">Allotted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-4 py-2">{{ student.name }}</td>
+                            <td class="px-4 py-2">{{ student.branch }}</td>
+                            <td class="px-4 py-2">{{ student.rank }}</td>
+                            <td class="px-4 py-2">
+                                {% if student.is_allotted %}
+                                    <span class="text-green-600 font-semibold">Yes</span>
+                                {% else %}
+                                    <span class="text-red-600 font-semibold">No</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="px-4 py-4 text-center text-gray-500">No students found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>
+
+
+
+
+
+
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" class="style">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="" class="h-8" alt="Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{% block title %}{% endblock title %}College Name</span>
+            </a>
+            <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            <div class="hidden w-5 md:block md:w-auto" id="navbar-default">
+                <div class="nav-container">
+                    <a href="" aria-current="page">
+                    <div class="btn">Home</div>
+                    </a>
+                    <a href="/login">
+                    <div class="btn">Admin Panel</div>
+                    </a>
+                    <a href="/aboutus">
+                    <div class="btn">About Us</div>
+                    </a>
+                    <a href="/FAQs">
+                    <div class="btn">FAQ</div>
+                    </a>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 60" height="60" width="400"
+                        overflow="visible" class="outline">
+                        <rect stroke-width="5" fill="transparent" height="60" width="400" y="0" x="0" pathLength="100"
+                            class="rect"></rect>
+                    </svg>
+                </div>
+            </div>
+    </nav>  
+    
+        <nav class=" nav-2 w-full h-11 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600">
+            
+             <button class="button2 text-xs font-medium p-2"><a href="student_login/"><span>Login</span></a></button>
+            
+        </nav>
+    
+    {% block body %}{% endblock body %}
+
+</body>
+ 
+</html> {% endcomment %}
