@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Offer Letter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        padding: 40px;
+        color: #333;
+      }
+      .header {
+        background-color: #eee;
+        border-bottom: 4px solid #333;
+        padding: 20px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        text-transform: uppercase;
+        color: #000;
+      }
+      .header p {
+        margin: 5px 0 0;
+        color: #555;
+      }
+      .date {
+        text-align: right;
+        margin-top: 20px;
+      }
+      .greeting {
+        margin-top: 30px;
+        font-size: 16px;
+      }
+      .body {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .body .highlight {
+        font-weight: bold;
+        color: #4b0082; /* Indigo-ish color */
+      }
+      .signature {
+        margin-top: 50px;
+        text-align: right;
+      }
+      .footer {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 12px;
+        color: #777;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <h1>New York City Institute</h1>
+      <p>123 Manhattan Ave, New York, NY 10001</p>
+    </div>
+
+    <!-- Date -->
+    <div class="date">
+      <p>Date: <span>{{ today_date }}</span></p>
+    </div>
+
+    <!-- Greeting -->
+    <div class="greeting">
+      <p>Dear <span class="highlight">{{ student.name }}</span>,</p>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+      <p>
+        Congratulations! Based on your performance and preference, you have been
+        <span class="highlight">allotted a seat</span> in the
+        <span class="highlight">{{ student.allotted_branch }}</span> branch.
+      </p>
+      <p>
+        Please complete your admission formalities and payment within the given
+        deadline. This offer letter confirms your branch allocation and
+        admission.
+      </p>
+      <p>
+        We are excited to have you join our institute and wish you a successful
+        academic journey.
+      </p>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <p class="highlight">Registrar</p>
+      <p>New York City Institute</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      This is a system-generated document and does not require a physical
+      signature.
+    </div>
+  </body>
+</html>

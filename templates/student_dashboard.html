@@ -1,0 +1,189 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class=" bg-gradient-to-r from-indigo-200 via-indigo-400 to-indigo-600 min-h-screen font-sans">
+
+    {% comment %} MESSAGE POP UP {% endcomment %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <div class="mt-8 w-80 text-sm leading-5 flex flex-col">
+        <div class="bg-blue-100 border-l-4 border-blue-500 rounded-md p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="h-5 w-5 text-blue-700 opacity-70"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="ml-3 text-blue-700 {{ message.tags }}">
+              {{ message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor%}
+    </ul>
+    {% endif %}
+
+
+    {%comment%}LAYOUT OF DASH BOARD{% endcomment%}
+
+    <div class="max-w-3xl mx-auto mt-12 mb-12 bg-white rounded-2xl shadow-xl p-8">
+      <h1 class="text-3xl font-bold text-blue-600 mb-4">
+        Welcome, {{ user }} 👋
+      </h1>
+      {% for name, value in student_data.items %}
+        {%if name == 'Email'%}
+          <p class="text-gray-600 text-md mb-6">
+            Email: <span class="font-medium">{{ value }}</span>
+          </p>
+        {% endif %}
+      {% endfor %}
+
+        <div class='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+        {% for name, value in student_data.items %}
+          {%if name == 'Id'%}
+              <h3 class="text-xl underline font-semibold col-span-2 mt-6 text-indigo-700">Personal Information</h3>
+          {%elif name == 'Math 10'%}
+              <h3 class="text-xl underline font-semibold col-span-2 mt-6 text-indigo-700">Academic Details</h3>
+              <h5 class="text-xl font-semibold col-span-2 mt-1 text-red-700">10th Details</h5>
+          {%elif name == 'Physics 12'%}
+              <h5 class="text-xl font-semibold col-span-2 mt-1 text-red-700">12th Details</h5>
+          {%elif name == 'Course Opted'%}
+              <h3 class="text-xl underline font-semibold col-span-2 mt-6 text-indigo-700">Preference</h3>
+          {%elif name == 'Is Allotted'%}
+              <h3 class="text-xl underline font-semibold col-span-2 mt-6 text-indigo-700">Others</h3>
+          {% endif %}
+          <div class="bg-blue-50 p-4 rounded-xl shadow-sm">
+          <p class="text-sm text-gray-500">{{ name }}</p>
+          <p class="text-lg font-semibold text-gray-800">{{ value }}</p>
+          </div>
+        {% endfor %}
+        {% if student.allotted_branch and student.is_allotted != "YES" %}
+          <form method="post" action="{% url 'accept_seat' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Accept Seat</button>
+          </form>
+        {% endif %}
+        </div>
+        <div class="mt-10 bg-indigo-50 p-6 rounded-xl shadow-md">
+    <h2 class="text-xl font-semibold text-indigo-700 mb-4">Upload Fee Receipt</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'upload_fee_receipt' %}">
+    {% csrf_token %}
+    <input 
+      type="file" 
+      name="receipt" 
+      accept="image/*"
+      class="block w-full text-sm text-gray-600 
+             file:mr-4 file:py-2 file:px-4
+             file:rounded-lg file:border-0
+             file:text-sm file:font-semibold
+             file:bg-indigo-600 file:text-white
+             hover:file:bg-indigo-700
+             mb-4"
+      required
+    >
+    <button 
+      type="submit"
+      class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+    >
+      Upload Receipt
+    </button>
+  </form>
+
+  {% if user.studentdetail.fee_receipt %}
+    <p class="mt-4 text-green-600 font-medium">
+      ✅ Receipt already uploaded:
+      <a href="{{ user.studentdetail.fee_receipt.url }}" target="_blank" class="underline text-blue-700">
+        View Receipt
+      </a>
+    </p>
+  {% else %}
+    <p class="mt-4 text-red-600">No receipt uploaded yet.</p>
+  {% endif %}
+</div>
+
+
+        
+
+      {% comment %}
+        <div class="bg-yellow-50 p-4 rounded-xl shadow-sm">
+          <p class="text-sm text-gray-500">Seat Allotted</p>
+          <p class="text-lg font-semibold text-gray-800">
+            {{ seat_allotted|yesno:"Yes,No,Waiting" }}
+          </p>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-xl shadow-sm">
+          <p class="text-sm text-gray-500">Email</p>
+          <p class="text-lg font-semibold text-gray-800">{{ email }}</p>
+        </div>
+
+        <div class="bg-purple-50 p-4 rounded-xl shadow-sm">
+          <p class="text-sm text-gray-500">Payment Status</p>
+          <p class="text-lg font-semibold text-gray-800">
+            {{ payment_done|yesno:"Paid,Pending" }}
+          </p>
+        </div>
+
+        <div
+          class="bg-red-50 p-4 rounded-xl shadow-sm col-span-1 sm:col-span-2"
+        >
+          <p class="text-sm text-gray-500">Offer Letter</p>
+          <p class="text-lg font-semibold text-gray-800">
+            {{ offer_letter_ready|yesno:"Available,Not Ready" }}
+          </p>
+        </div>
+      </div> {% endcomment %}
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        
+        <a
+          href="{% url 'form_submit' %}"
+          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          Fill Details Form
+        </a>
+        {% comment %} <a
+          href="#"
+          class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition {% if not seat_allotted %}pointer-events-none opacity-50{% endif %}"
+        >
+          View Seat
+        </a> {% endcomment %}
+        {% if student.allotted_branch and student.is_allotted != "YES" %}
+          <form method="post" action="{% url 'accept_seat' %}" class="mt-6">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+              Accept Seat
+            </button>
+          </form>
+        {% endif %}
+        <a
+          href="{% url 'generate_offer_letter' %}"
+          class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition
+          {% if student.fee_paid == 'YES' %}
+          {% else %}
+            pointer-events-none opacity-50
+          {% endif %}"
+        >
+          Download Offer Letter
+        </a>
+
+      </div>
+    </div>
+  </body>
+</html>

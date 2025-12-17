@@ -1,0 +1,222 @@
+{% extends "base.html" %} {% load static %} {% block title %}Welcome |
+{%endblock title %} {% block body %}
+
+<!-- Custom styles for animation -->
+<style>
+  @keyframes underline-grow {
+    0% {
+      width: 0%;
+      opacity: 0;
+    }
+    50% {
+      width: 100%;
+      opacity: 1;
+    }
+    100% {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+  .underline-animate {
+    position: relative;
+  }
+  .underline-animate::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 3px;
+    width: 0%;
+    background-color: #facc15; /* yellow-400 */
+    border-radius: 3px;
+    animation: underline-grow 1.5s forwards ease-in-out;
+  }
+
+  @keyframes text-glow {
+    0%,
+    100% {
+      text-shadow: 0 0 6px rgba(250, 204, 21, 0.7);
+      color: #fbbf24; /* yellow-400 */
+    }
+    50% {
+      text-shadow: 0 0 12px rgba(250, 204, 21, 1);
+      color: #f59e0b; /* yellow-500 */
+    }
+  }
+  .text-glow-animate {
+    animation: text-glow 3s infinite ease-in-out;
+  }
+</style>
+
+<!-- Hero Section -->
+<section
+  class="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white py-24 px-6 md:px-12"
+>
+  <div
+    class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12"
+  >
+    <div class="max-w-lg space-y-8">
+      <h1
+        class="text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg"
+      >
+        Your Future Starts Here<br />
+        <span
+          class="underline-animate inline-block text-glow-animate font-extrabold"
+          >Get Expert Counseling & Guidance</span
+        >
+      </h1>
+      <p class="text-lg opacity-90 max-w-md">
+        Join our
+        <span
+          class="font-semibold text-yellow-300 underline decoration-yellow-400 decoration-4"
+          >student counseling program</span
+        >
+        designed to help you choose the right career path, manage stress, and
+        unlock your potential.
+      </p>
+      <a
+        href="/student_signup"
+        class="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-10 py-4 rounded-md shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
+      >
+        Enroll Now
+      </a>
+    </div>
+    <div>
+      <img
+        src="{% static 'undraw_graduation_u7uc.png'%}"
+        alt="Student Counseling"
+        class="w-80 md:w-[450px] mx-auto"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 px-6 md:px-12 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-7xl mx-auto text-center space-y-14">
+    <h2
+      class="text-4xl font-extrabold text-gray-900 dark:text-white relative inline-block"
+    >
+      Why Choose
+      <span
+        class="underline decoration-indigo-400 decoration-4 underline-animate"
+        >Us?</span
+      >
+      <span
+        class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 rounded-full bg-indigo-500 opacity-80"
+      ></span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-14 max-w-6xl mx-auto">
+      <div
+        class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 ease-in-out"
+      >
+        <svg
+          class="mx-auto mb-6 h-14 w-14 text-indigo-600"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 20l9-5-9-5-9 5 9 5z"></path>
+          <path d="M12 12l9-5-9-5-9 5 9 5z"></path>
+        </svg>
+        <h3
+          class="text-2xl font-bold mb-3 text-indigo-700 dark:text-indigo-300"
+        >
+          Personalized Guidance
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          Our counselors provide
+          <span class="font-semibold text-indigo-500">one-on-one sessions</span>
+          tailored to your interests and goals.
+        </p>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 ease-in-out"
+      >
+        <svg
+          class="mx-auto mb-6 h-14 w-14 text-indigo-600"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          viewBox="0 0 24 24"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M14.31 8l5.74 9.94"></path>
+          <path d="M9.69 8h11.48"></path>
+          <path d="M7.38 12l5.74-9.94"></path>
+        </svg>
+        <h3
+          class="text-2xl font-bold mb-3 text-indigo-700 dark:text-indigo-300"
+        >
+          Career Development
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          Gain insights on
+          <span class="underline decoration-indigo-400 decoration-2"
+            >courses, internships</span
+          >, and skill-building to boost your career prospects.
+        </p>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 p-10 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 ease-in-out"
+      >
+        <svg
+          class="mx-auto mb-6 h-14 w-14 text-indigo-600"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          viewBox="0 0 24 24"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2h-6"></path>
+          <path d="M3 9v-4a2 2 0 0 1 2-2h6"></path>
+          <path d="M7 15v-6"></path>
+          <path d="M17 9v6"></path>
+        </svg>
+        <h3
+          class="text-2xl font-bold mb-3 text-indigo-700 dark:text-indigo-300"
+        >
+          Mental Wellness
+        </h3>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          We support your mental health with counseling sessions to help you
+          <span class="italic font-semibold text-indigo-500"
+            >cope and thrive</span
+          >.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-20 bg-indigo-700 text-white text-center px-6 md:px-12">
+  <h2 class="text-4xl font-extrabold mb-6 tracking-wide drop-shadow-md">
+    Ready to take the
+    <span class="underline-animate inline-block">next step?</span>
+  </h2>
+  <p class="max-w-xl mx-auto mb-10 text-lg opacity-90 leading-relaxed">
+    Whether you’re uncertain about your future or want to excel in your studies,
+    our
+    <span class="underline decoration-yellow-400 decoration-2 font-semibold"
+      >student counseling service</span
+    >
+    is here for you.
+  </p>
+  <a
+    href="/student_signup"
+    class="inline-block bg-yellow-400 hover:bg-yellow-500 text-indigo-900 font-extrabold px-12 py-5 rounded-lg shadow-2xl transition duration-300 ease-in-out transform hover:scale-110"
+  >
+    Get Started Today
+  </a>
+</section>
+
+{% endblock body %}

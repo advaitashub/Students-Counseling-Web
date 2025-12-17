@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <section>
+      <div
+        class="bg-white md:mt-4 lg:mt-2 relative items-center max-w-[450px] border border-gray-500 shadow-xl mx-auto md:px-12 lg:py-20 max-w-7xl"
+      >
+        <div
+          class="w-full max-w-md mx-auto md:max-w-sm md:px-0 md:w-96 sm:px-4"
+        >
+          <div class="flex flex-col">
+            <div>
+              <img
+                src="{% static 'forgot_password.png' %}"
+                class="w-xs bg-cover bg-center mt-2 lg:mt-[-80px]"
+                alt="background"
+              />
+            </div>
+            <div>
+              <h2
+                class="mt-2 text-center underline font-semiboldbold text-4xl text-black"
+              >
+                Reset password
+              </h2>
+            </div>
+          </div>
+          <form method="post">
+            {% csrf_token %}
+            {% block body %}{% endblock body %}
+            {% block submit_button %}
+              <div class="col-span-full">
+                <button
+                  type="submit"
+                  class="items-center justify-center px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full nline-flex hover:bg-transparent hover:border-black hover:text-black focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black"
+                >
+                  Submit your request
+                </button>
+              </div>
+            {% endblock submit_button %}
+            {%block bodyend%}{% endblock bodyend%}
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
