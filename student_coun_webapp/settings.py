@@ -28,7 +28,8 @@ DEBUG = os.getenv("DEBUG") == "True"
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS =['localhost', '127.0.0.1','.onrender.com']
+# ['studentCouncelling.com',"127.0.0.1"]
 
 
 # Application definition
