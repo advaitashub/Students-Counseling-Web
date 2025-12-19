@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import StudentDetailForm,UserRegistrationForm
-from .models import CustomUser, AdminProfile, StudentDetail,RegisteredStudent
+from .models import CustomUser, AdminProfile, StudentDetail
+# ,RegisteredStudent
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from .forms import MassAllotmentForm
@@ -172,7 +173,6 @@ def student_signup_page(request):
             user.is_student = True           # ✅ Mark this user as a student
             user.password = make_password(password)  # ✅ Hash the password
             user.save()                      # Now save to DB 
-            RegisteredStudent.objects.create(user=user, email=request.POST.get("email"))
 
 
             messages.success(request, "Account created successfully. Please log in.")

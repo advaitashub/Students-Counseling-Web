@@ -1,19 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.hashers import make_password
+
 
 class CustomUser(AbstractUser):
     is_student = models.BooleanField(default=False)
-
-    # models.py
-class RegisteredStudent(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    email = models.EmailField(unique=True,blank=True, null=True)
-    branch = models.CharField(max_length=100, blank=True)
-    # add other fields if needed
-
-    def __str__(self):
-        return self.user.username
 
 
 
