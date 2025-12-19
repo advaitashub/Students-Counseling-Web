@@ -13,7 +13,8 @@ from django.db.models import F
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
-
+from django.contrib.auth.views import PasswordResetView
+from django.conf import settings
 
 
 
@@ -337,7 +338,15 @@ def admin_signup(request):
 
     return render(request, "admin-temp/admin_signup.html")
 
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'emails/password_reset_email.html'
 
+    def get_email_context(self):
+        # Add your domain and protocol
+        context = super().get_email_context()
+        context['domain'] = settings.DOMAIN
+        context['protocol'] = settings.PROTOCOL
+        return context
 
 
 
