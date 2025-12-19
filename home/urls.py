@@ -25,7 +25,9 @@ urlpatterns = [
         name='password_reset',
     ),
     path('registration/password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('registration/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='C:/Users/singh/OneDrive/Desktop/yr2 sem3/CODDING/student councelling app/student_coun_webapp/templates/registration/password_reset_confirml.html',success_url=reverse_lazy("password_reset_done")), name='password_reset_confirm'),
+    path('registration/reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(
+        template_name='registration/password_reset_confirml.html',
+        success_url=reverse_lazy("password_reset_done")), name='password_reset_confirm'),
     path('registration/reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('student_signup/', views.student_signup_page, name='student_signup'),
     path('student_form/',views.student_login_view, name='student_logedin'),
