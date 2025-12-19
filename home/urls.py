@@ -4,6 +4,7 @@ from home import views
 from . import views
 from .views import student_form_view, student_dashboard
 from django.contrib.auth import views as auth_views
+from django.conf import settings
 
 
 urlpatterns = [
@@ -11,7 +12,18 @@ urlpatterns = [
     path('accept-seat/', views.accept_seat, name='accept_seat'),
     path('generate_offer_letter/', views.generate_offer_letter, name='generate_offer_letter'),
     path('student_login/', views.login_page, name='student_login'),
-    path('registration/password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path(
+        'registration/password_reset/',
+        auth_views.PasswordResetView.as_view(
+            template_name='registration/password_reset.html',
+            email_template_name='registration/password_reset_email.html',
+            extra_email_context={
+                'domain': settings.DOMAIN,
+                'protocol': settings.PROTOCOL,
+            }
+        ),
+        name='password_reset',
+    ),
     path('registration/password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('registration/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='C:/Users/singh/OneDrive/Desktop/yr2 sem3/CODDING/student councelling app/student_coun_webapp/templates/registration/password_reset_confirml.html',success_url=reverse_lazy("password_reset_done")), name='password_reset_confirm'),
     path('registration/reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),

@@ -186,3 +186,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+DOMAIN = os.getenv("DOMAIN", "localhost:8000")
+PROTOCOL = os.getenv("PROTOCOL", "http")
+
