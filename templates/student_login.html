@@ -7,51 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>login page</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    {% comment %}
-    <link
-      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
-      rel="stylesheet"
-    />
-    {% endcomment %}
   </head>
 
   <body
-    class="bg-gradient-to-r from-teal-100 via-teal-300 to-teal-600 flex items-center justify-center h-screen"
+    class="bg-gradient-to-r from-teal-100 via-teal-300 to-teal-600 flex items-center justify-center h-screen z-50"
   >
-    {% comment %} MESSAGE POP UP {% endcomment %} {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-      <div class="mt-8 w-80 text-sm leading-5 flex flex-col">
-        <div class="bg-blue-100 border-l-4 border-blue-500 rounded-md p-4">
-          <div class="flex">
-            <div class="flex-shrink-0">
-              <svg
-                class="h-5 w-5 text-blue-700 opacity-70"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
-            <div class="ml-3 text-blue-700 {{ message.tags }}">
-              {{ message }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {% endfor%}
-    </ul>
-    {% endif %}
-
     <div
-      class="border border-gray-300 shadow-lg max-w-[450px] md:max-w-[590px] bg-white grid grid-cols-2 items-center p-2 rounded-lg"
+      class="border border-gray-300 shadow-lg max-w-[400px] md:max-w-[590px] bg-white grid grid-cols-2 items-center p-2 rounded-lg"
     >
       <div>
         <img
@@ -59,9 +21,43 @@
           class="w-3xs bg-cover bg-center"
           alt="background"
         />
+        {% if messages %}
+        <ul class="messages fixed top-3 md:top-9 items-center max-w-md z-50">
+          {% for message in messages %}
+          <div class="mt-2 w-full text-sm leading-5 flex flex-col">
+            <div
+              class="bg-blue-100 border-l-4 border-blue-500 rounded-md p-4 shadow-lg"
+            >
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <svg
+                    class="h-5 w-5 text-blue-700 opacity-70"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div class="ml-3 text-blue-700 {{ message.tags }}">
+                  {{ message }}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </div>
-      <div class="max-w-80 grid gap-3">
-        <h1 class="text-5xl font-[Montserrat] font-bold black mt-2">LOGIN</h1>
+      <div class="max-w-80 grid gap-2 mr-2">
+        <h1 class="text-5xl font-[Montserrat] font-bold black mt-6 md:mt-2">
+          LOGIN
+        </h1>
         <form
           class="space-y-6"
           action="{% url 'student_logedin' %}"
@@ -73,7 +69,7 @@
             <input
               type="text"
               name="user"
-              class="text-sm border border-blue-400 w-[200px] md:w-[275px] py-2 px-5 rounded-full"
+              class="text-sm border border-blue-400 w-[180px] md:w-[275px] py-2 px-5 rounded-full"
               placeholder="username"
               required
             />
@@ -84,7 +80,7 @@
               type="password"
               minlength="6"
               name="password"
-              class="text-sm border border-blue-400 w-[200px] md:w-[275px] py-2 px-5 rounded-full"
+              class="text-sm border border-blue-400 w-[180px] md:w-[275px] py-2 px-5 rounded-full"
               placeholder="Password"
               id="password"
               required
@@ -100,13 +96,13 @@
           </div>
           <button
             type="submit"
-            class="py-1 w-[200px] md:w-[275px] rounded-3xl shadow-xl bg-teal-400 hover:bg-teal-500 hover:py-2.5 hover:h-10 text-md font-semibold mt-4"
+            class="py-1 w-[180px] md:w-[275px] rounded-3xl shadow-xl bg-teal-400 hover:bg-teal-500 hover:py-2.5 hover:h-10 text-md font-semibold mt-4"
           >
             Log in
           </button>
         </form>
         <p class="mt-2 text-sm">
-          Don't have an account?<a
+          Don't have an account?<br /><a
             href="/student_signup"
             class="text-blue-600 hover:underline hover:text-blue-800"
             >Sign up</a
@@ -114,7 +110,7 @@
         </p>
         <div class="buttons-container mt-2">
           <div
-            class="apple-login-button flex items-center justify-center w-[200px] md:w-[275px] p-1 rounded-3xl shadow-xl bg-black hover:h-10 text-md font-semibold text-white text-md"
+            class="apple-login-button flex items-center justify-center w-[180px] md:w-[275px] p-1 rounded-3xl shadow-xl bg-black hover:h-10 text-md font-semibold text-white text-md"
           >
             <svg
               stroke="currentColor"
@@ -134,7 +130,7 @@
           </div>
 
           <div
-            class="google-login-button mt-4 mb-4 flex items-center justify-center w-[200px] md:w-[275px] p-1 rounded-3xl shadow-xl border border-gray-400 bg-white hover:h-10 font-semibold text-black text-md"
+            class="google-login-button mt-4 mb-4 flex items-center justify-center w-[180px] md:w-[275px] p-1 rounded-3xl shadow-xl border border-gray-400 bg-white hover:h-10 font-semibold text-black text-md"
           >
             <svg
               stroke="currentColor"
