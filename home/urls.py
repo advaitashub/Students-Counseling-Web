@@ -16,7 +16,7 @@ urlpatterns = [
         'registration/password_reset/',
         auth_views.PasswordResetView.as_view(
             template_name='registration/password_reset.html',
-            email_template_name='registration/password_reset_email.html',
+            email_template_name='registration/custom_password_reset_email.html',
             extra_email_context={
                 'domain': settings.DOMAIN,
                 'protocol': settings.PROTOCOL,
