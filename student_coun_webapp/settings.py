@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
+    'sendgrid_backend',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -177,15 +178,24 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_REDIRECT_URL = '/dashboard/'   # the page you want to redirect to
 SOCIALACCOUNT_ADAPTER = 'home.adapters.MySocialAccountAdapter'  # if custom
 
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-# settings.py
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+
+DEFAULT_FROM_EMAIL = os.getenv(
+    "DEFAULT_FROM_EMAIL",
+    "studentwebapp2025@gmail.com"
+)
+
+# EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+# # settings.py
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 DOMAIN = os.getenv("DOMAIN", "localhost:8000")
